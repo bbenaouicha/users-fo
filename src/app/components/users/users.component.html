@@ -1,0 +1,45 @@
+<div class="container  mt-4">
+    <div class="row ">
+        <div class="col-3">
+
+            <app-search-input [filter]="searchTerm" (detectTyping)="search($event)"></app-search-input>
+        </div>
+
+        <div class="col-9 d-flex justify-content-end">
+            <button type="button" class="btn buttonPersonalized" data-bs-toggle="modal"
+                data-bs-target="#createUserModal"><svg id="i-plus" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="currentcolor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2">
+                    <path d="M16 2 L16 30 M2 16 L30 16" />
+                </svg> Créer un utilisateur</button>
+        </div>
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i = index">
+                    <th [ngClass]="{'background-purple': i % 2 === 0}" scope="row">{{user.id}}</th>
+                    <td [ngClass]="{'background-purple': i % 2 === 0}">{{user.firstName}}</td>
+                    <td [ngClass]="{'background-purple': i % 2 === 0}">{{user.lastName}}</td>
+                    <td [ngClass]="{'background-purple': i % 2 === 0}">{{user.email}}</td>
+                    <td [ngClass]="{'background-purple': i % 2 === 0}">
+
+                        <app-update-button (click)="selectUser(user)"></app-update-button>
+                        <app-delete-button (click)="selectUser(user)"></app-delete-button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <app-create-user (userAdded)="displayUsers($event)"></app-create-user>
+    <app-update-user [idUser]="idUser" (userUpdated)="displayUsers($event)"></app-update-user>
+    <app-delete-user [idUser]="idUser" (userDeleted)="displayUsers($event)"></app-delete-user>

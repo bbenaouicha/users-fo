@@ -1,0 +1,60 @@
+<div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 bold-text" id="createUserModal">Création d'utilisateur</h1>
+                <button type="button" class="btn-close" id="closebutton" data-bs-dismiss="modal" (click)="cancel()"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="createUserForm">
+                    <div class="mb-3">
+                        <label for="firstNameInput" class="form-label">Prénom :</label>
+                        <input type="text" class="form-control" id="firstNameInput" [formControlName]="'firstName'">
+                        <div *ngIf="createUserForm.get('firstName')?.errors?.['required'] && createUserForm.get('firstName')?.touched"
+                            class="text-danger bold-text">
+                            Prénom requis
+                        </div>
+                        <div *ngIf="createUserForm.get('firstName')?.errors?.['maxlength'] && createUserForm.get('firstName')?.touched"
+                            class="text-danger bold-text">
+                            La longueur du prénom ne peut pas dépasser 50 caractères.
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastNameInput" class="form-label">Nom :</label>
+                        <input type="text" class="form-control" id="lastNameInput" [formControlName]="'lastName'">
+                        <div *ngIf="createUserForm.get('lastName')?.errors?.['required'] && createUserForm.get('lastName')?.touched"
+                            class="text-danger bold-text">
+                            Nom requis
+                        </div>
+                        <div *ngIf="createUserForm.get('lastName')?.errors?.['maxlength'] && createUserForm.get('lastName')?.touched"
+                            class="text-danger bold-text">
+                            La longueur du Nom ne peut pas dépasser 50 caractères.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">E-mail :</label>
+                        <input type="email" class="form-control" id="emailInput" [formControlName]="'email'">
+                        <div *ngIf="createUserForm.get('email')?.invalid && createUserForm.get('email')?.touched"
+                            class="text-danger bold-text">
+                            Email invalide
+                        </div>
+                    </div>
+                    <div *ngIf="userAlreadyExists" class="text-danger bold-text">
+                        Cet utilisateur existe déjà dans notre système. Veuillez choisir un autre e-mail.
+                    </div>
+                    <div *ngIf="invalidAttributes" class="text-danger bold-text">
+                        Merci de vérifier vos coordonnées
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary bold-text" (click)="cancel()"
+                    data-bs-dismiss="modal">ANNULER</button>
+                <button type="button" class="btn btn-primary bold-text" (click)="save()"
+                    [disabled]="createUserForm && createUserForm.status === 'INVALID'">CÉER</button>
+            </div>
+        </div>
+    </div>
+</div>

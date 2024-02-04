@@ -1,0 +1,51 @@
+<div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 bold-text" id="updateUserModal">Modification Utilisateur</h1>
+                <button type="button" class="btn-close" id="closebutton" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="updateUserForm" *ngIf="idUser">
+                    <div class="mb-3">
+                        <label for="firstNameInput" class="form-label">Prénom :</label>
+                        <input type="text" class="form-control" id="firstNameInput" [formControlName]="'firstName'">
+                        <div *ngIf="updateUserForm.get('firstName')?.errors?.['required'] && updateUserForm.get('firstName')?.touched"
+                            class="text-danger bold-text">
+                            Prénom requis
+                        </div>
+                        <div *ngIf="updateUserForm.get('firstName')?.errors?.['maxlength'] && updateUserForm.get('firstName')?.touched"
+                            class="text-danger bold-text">
+                            La longueur du prénom ne peut pas dépasser 50 caractères.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastNameInput" class="form-label">Nom :</label>
+                        <input type="text" class="form-control" id="lastNameInput" [formControlName]="'lastName'">
+                        <div *ngIf="updateUserForm.get('lastName')?.errors?.['required'] && updateUserForm.get('lastName')?.touched"
+                            class="text-danger bold-text">
+                            Nom requis
+                        </div>
+                        <div *ngIf="updateUserForm.get('lastName')?.errors?.['maxlength'] && updateUserForm.get('lastName')?.touched"
+                            class="text-danger bold-text">
+                            La longueur du nom ne peut pas dépasser 50 caractères.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">E-mail :</label>
+                        <p> {{userToUpdate?.email}}</p>
+
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary bold-text" data-bs-dismiss="modal">ANNULER</button>
+                <button type="button" class="btn btn-primary bold-text" (click)="save()"
+                    [disabled]="updateUserForm && updateUserForm.status === 'INVALID'">MODIFIER</button>
+            </div>
+        </div>
+    </div>
+</div>
